@@ -1,7 +1,7 @@
 import { ColorModeContext, useMode } from './theme';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import Topbar from "./scenes/global/Topbar";
-//import Dashboard from './scenes/dashboard';
+import Dashboard from './scenes/dashboard';
 import Sidebar from './scenes/global/Sidebar';
 //import CurrencyInfo from './scenes/currencyinfo';
 import { Routes, Route } from "react-router-dom";
@@ -18,8 +18,8 @@ function App() {
           <main className="content">
             <Topbar />
             <Routes>
-              {/*<Route path="/" element={<Dashboard />} />
-              <Route path="/info" element={<CurrencyInfo />} />*/}
+              <Route path="/" element={<Dashboard />} />
+              {/*<Route path="/info" element={<CurrencyInfo />} />*/}
             </Routes>
           </main>
         </div>
