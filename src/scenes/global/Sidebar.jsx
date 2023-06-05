@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import HelpOutlinedIcon from "@mui/icons-material/HelpOutlined";
+import HelpOutlinedIcon from "@mui/icons-material/HelpOutline";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
+import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
     const theme = useTheme();
@@ -35,7 +37,7 @@ const Sidebar = () => {
 
     return (
         <Box sx={{
-            "$ .pro-sidebar-inner":{
+            "& .pro-sidebar-inner":{
                 background: `${colors.primary[400]} !important`,
             },
             "& .pro-icon-wrapper":{
@@ -49,7 +51,7 @@ const Sidebar = () => {
             },
             "& .pro-menu-item-active":{
                 color: "#6870fa !important",
-            }
+            },
         }}>
             <ProSidebar collapsed={isCollapsed}>
                 <Menu iconShape="square">
@@ -61,9 +63,10 @@ const Sidebar = () => {
                             color: colors.grey[100],
                         }}
                     >
+                        
                         {/* LOGO */}
                         {!isCollapsed && (
-                            <Box mb="25px" mt="15px">
+                            <Box mb="25px">
                                 <Box display="flex" justifyContent="center" alignItems="center">
                                     <img alt="logo" width="100px" height="100px" src={`../../assets/logo.png`} style={{ cursor: PointerEvent, borderRadius:"50%"}}/>
                                     
@@ -76,6 +79,44 @@ const Sidebar = () => {
                         )}
                     </MenuItem>
 
+                    {/* MENU ITEMS */}       
+                    <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+                        <Item
+                            title="Dashboard"
+                            to="/"
+                            icon={<HomeOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+                        <Item
+                            title="Wallet"
+                            to="/Wallet"
+                            icon={<AccountBalanceWalletOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        /> 
+                        <Item
+                            title="Recipients"
+                            to="/Recipients"
+                            icon={<PersonOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        /> 
+                        <Item
+                            title="Transactions"
+                            to="/Transactions"
+                            icon={<ReceiptOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+                        <Item
+                            title="Help"
+                            to="/Help"
+                            icon={<HelpOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />    
+                    </Box>
                 </Menu>
             </ProSidebar>
         </Box>
