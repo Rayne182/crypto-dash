@@ -1,0 +1,69 @@
+import React, { useState } from 'react';
+import Web3 from 'web3';
+import { Button, Box, Typography, useTheme } from "@mui/material";
+import WalletBalanceTable from '../../components/WalletBalanceTable'; 
+import Header from '../../components/Header';
+import { tokens } from '../../theme';
+
+const Wallet = () => {
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
+    const [account, setAccount] = useState(null);
+    const [balance, setBalance] = useState(null);
+
+    const loadWeb3 = async () => {
+        if (window.ethereum) {
+        window.web3 = new Web3(window.ethereum);
+        await window.ethereum.enable(); // prompts user to connect their MetaMask
+        } else {
+        window.alert('Non-Ethereum browser detected. Consider trying MetaMask!');
+        }
+    };
+
+    const loadBlockchainData = async () => {
+        const web3 = window.web3;
+        // Load account
+        const accounts = await web3.eth.getAccounts();
+        setAccount(accounts[0]);
+        const balance = await web3.eth.getBalance(accounts[0]);
+        setBalance(web3.utils.fromWei(balance));
+    };
+
+    const connectWallet = async () => {
+        await loadWeb3();
+        await loadBlockchainData();
+    };
+
+    return (
+        <Box ml="20px">
+            {/* HEADER */}
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Header title="WALLET" subtitle="Your balances" />
+
+            </Box>
+            <Box 
+            sx={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center', 
+                justifyContent: 'center', 
+                height: '50vh' 
+            }}
+            >
+                {!account ? (
+                    <Button variant="contained" backgroundColor='black' onClick={connectWallet}>Connect Wallet</Button>
+                ) : (
+                    <>
+
+                    <Typography variant="h4" fontWeight={'bold'}>Your Balances:</Typography>
+                    <Typography color={colors.greenAccent[400]}>{account}</Typography>
+                    <h2>{balance} ETH</h2>
+                    <WalletBalanceTable  account={account} />
+                    </>
+                )}
+            </Box>
+        </Box>
+  );
+};
+
+export default Wallet;
