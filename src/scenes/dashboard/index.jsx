@@ -1,7 +1,6 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
-import { DataGrid } from "@mui/x-data-grid";
 import CryptoTable from "../../components/CryptoTable";
 
 const Dashboard = () => {
@@ -17,8 +16,9 @@ const Dashboard = () => {
         </Box>
 
         {/* CRYPTO TABLE */}
-        <Box mt="20px">
-          <CryptoTable />
+        <Box textAlign="center" alignItems="center">
+          <Typography mb="30px" variant="h4" fontWeight="bold">Top Crypto Currencies</Typography>
+          <CryptoTable/>
         </Box>
       </Box>
     );

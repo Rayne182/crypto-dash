@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
+import { tokens } from '../theme';
 
 const CryptoTable = () => {
   const [data, setData] = useState([]);
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
   useEffect(() => {
-    fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false')
+    fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=10&sparkline=false`)
       .then(response => response.json())
       .then(data => {
         const newData = data.map((item, index) => ({
           id: index + 1, // rank
           logo: item.image,
           symbol: item.symbol.toUpperCase(),
-          marketCap: `$${Number(item.market_cap).toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
-          currentPrice: `$${Number(item.current_price).toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
-          totalVolume: `$${Number(item.total_volume).toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+          marketCap: `ZAR ${Number(item.market_cap).toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+          currentPrice: `ZAR ${Number(item.current_price).toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+          totalVolume: `ZAR ${Number(item.total_volume).toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
         }));
         setData(newData);
       })
@@ -41,8 +44,16 @@ const CryptoTable = () => {
   ];
 
   return (
-    <Box style={{ height: 300, width: '60%', margin: 'auto' }}>
-      <DataGrid rows={data} columns={columns} autoHeight autoPageSize />
+    <Box 
+      sx={{ 
+        height: 500, 
+        width: '60%', 
+        margin: 'auto', 
+        '.MuiDataGrid-root .MuiDataGrid-footer': { display: 'none' },
+        '.MuiDataGrid-colCell': { fontWeight: 'bold' }
+      }}
+    >
+      <DataGrid sx={{background: `${colors.primary[400]}`}} rows={data} columns={columns} hideFooter />
     </Box>
   );
 };
