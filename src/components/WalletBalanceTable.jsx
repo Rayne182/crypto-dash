@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+/*import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box, useTheme } from "@mui/material";
 import { tokens } from '../theme';
@@ -71,4 +71,4 @@ return (
 );
 };
 
-export default WalletBalanceTable;
+export default WalletBalanceTable;*/

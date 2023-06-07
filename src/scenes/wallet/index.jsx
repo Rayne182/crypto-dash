@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+/*import React, { useState, useEffect } from 'react';
 import Web3 from 'web3';
 import { Button, Box, Typography, useTheme } from "@mui/material";
 import WalletBalanceTable from '../../components/WalletBalanceTable'; 
@@ -65,7 +65,7 @@ const Wallet = () => {
 
     return (
         <Box ml="20px">
-            {/* HEADER */}
+            {/* HEADER }
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Header title="WALLET" subtitle="Your balances" />
             </Box>
@@ -93,4 +93,4 @@ const Wallet = () => {
     );
 };
 
-export default Wallet;
+export default Wallet;*/
