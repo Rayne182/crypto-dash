@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box, useTheme } from "@mui/material";
 import { tokens } from '../theme';
+import { useNavigate } from 'react-router-dom';
 
 const CryptoTable = () => {
   const [data, setData] = useState([]);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=zar&order=market_cap_desc&per_page=10&sparkline=false`)
@@ -19,6 +21,7 @@ const CryptoTable = () => {
           marketCap: `ZAR ${Number(item.market_cap).toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
           currentPrice: `ZAR ${Number(item.current_price).toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
           totalVolume: `ZAR ${Number(item.total_volume).toLocaleString('en-US', { minimumFractionDigits: 2 })}`,
+          apiId: item.id,
         }));
         setData(newData);
       })
@@ -43,6 +46,10 @@ const CryptoTable = () => {
     { field: 'totalVolume', headerName: 'Total Volume', flex: 1 },
   ];
 
+  const handleRowClick = (params) => {
+    navigate('/info', { state: { selectedId: params.row.apiId } });
+  }
+
   return (
     <Box 
       sx={{ 
@@ -53,7 +60,7 @@ const CryptoTable = () => {
         '.MuiDataGrid-colCell': { fontWeight: 'bold' }
       }}
     >
-      <DataGrid sx={{background: `${colors.primary[400]}`}} rows={data} columns={columns} hideFooter />
+      <DataGrid sx={{background: `${colors.primary[400]}`}} rows={data} columns={columns} hideFooter onRowClick={handleRowClick}/>
     </Box>
   );
 };

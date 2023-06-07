@@ -4,6 +4,7 @@ import Topbar from "./scenes/global/Topbar";
 import Dashboard from './scenes/dashboard';
 import Sidebar from './scenes/global/Sidebar';
 import Wallet from './scenes/wallet';
+import CoinInfo from './scenes/coininfo';
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/wallet" element={<Wallet />} />
+              <Route path="/info" element={<CoinInfo />} />
             </Routes>
           </main>
         </div>
